@@ -2,6 +2,7 @@ import 'package:donut_app/tab/burger_tab.dart';
 import 'package:donut_app/tab/donut_tab.dart';
 import 'package:donut_app/tab/pancake_tab.dart';
 import 'package:donut_app/tab/pizza_tab.dart';
+import 'package:donut_app/tab/profiletab.dart';
 import 'package:donut_app/tab/smoothie_tab.dart';
 import 'package:donut_app/utils/constants.dart';
 import 'package:donut_app/utils/my_tab.dart';
@@ -19,7 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  
+
   // User information
   late User? _currentUser;
   String _userName = 'Usuario';
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     try {
       // Sign out from Firebase
       await FirebaseAuth.instance.signOut();
-      
+
       // If signed in with Google, also sign out from Google
       await GoogleSignIn().signOut();
 
@@ -56,9 +57,9 @@ class _HomePageState extends State<HomePage> {
       );
     } catch (e) {
       // Show error if logout fails
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al cerrar sesión: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error al cerrar sesión: $e')));
     }
   }
 
@@ -95,7 +96,10 @@ class _HomePageState extends State<HomePage> {
               child: IconButton(
                 icon: Icon(Icons.person, color: Colors.grey[800], size: 30),
                 onPressed: () {
-                  _scaffoldKey.currentState?.openDrawer();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfileTab()),
+                  );
                 },
               ),
             ),
@@ -111,8 +115,8 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.white,
                   child: Icon(Icons.person, size: 50, color: appPrimaryColor),
                   // Note: Replace with actual user photo when available
-                  // backgroundImage: _currentUser?.photoURL != null 
-                  //   ? NetworkImage(_currentUser!.photoURL!) 
+                  // backgroundImage: _currentUser?.photoURL != null
+                  //   ? NetworkImage(_currentUser!.photoURL!)
                   //   : AssetImage('lib/assets/profile.jpg') as ImageProvider,
                 ),
                 decoration: BoxDecoration(color: appPrimaryColor),
@@ -121,7 +125,10 @@ class _HomePageState extends State<HomePage> {
                 leading: Icon(Icons.person),
                 title: Text("Perfil"),
                 onTap: () {
-                  // TODO: Implement profile screen
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfileTab()),
+                  );
                 },
               ),
               ListTile(
