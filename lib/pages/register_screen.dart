@@ -1,9 +1,10 @@
+import 'package:donut_app/pages/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:donut_app/utils/constants.dart';
 import 'package:donut_app/utils/validators.dart';
-import 'package:donut_app/pages/phone_verification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// Pantalla de registro como un StatefulWidget
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -12,65 +13,58 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  // Variable para controlar la visibilidad de la contraseña
   bool _isPasswordVisible = false;
+  
+  // Controladores para los campos de texto
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailPhoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool isEmail = true;
+  
+  // Variables de estado para manejar la carga
   bool _isLoading = false;
+  
+  // Clave global para validar el formulario
   final _formKey = GlobalKey<FormState>();
 
+  // Método para registrar un nuevo usuario
   void _register() async {
+    // Valida el formulario antes de proceder
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
 
       try {
-        if (isEmail) {
-          // Email registration
-          UserCredential userCredential = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                email: emailPhoneController.text.trim(), 
-                password: passwordController.text
-              );
-          
-          // Send email verification
-          await userCredential.user?.sendEmailVerification();
-          
-          _showVerificationDialog('Se ha enviado un correo de verificación');
-        } else {
-          // Phone number registration
-          // Format phone number if needed (e.g., +52 for Mexico)
-          String formattedPhoneNumber = '+52${emailPhoneController.text.trim()}';
-          
-          // Navigate to phone verification screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PhoneVerificationScreen(
-                phoneNumber: formattedPhoneNumber
-              ),
-            ),
-          );
-        }
+        // Registro de usuario con correo electrónico y contraseña en Firebase
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text,
+            );
+
+        // Envía un correo de verificación al nuevo usuario
+        await userCredential.user?.sendEmailVerification();
+
+        // Muestra un diálogo de verificación
+        _showVerificationDialog('Se ha enviado un correo de verificación');
       } on FirebaseAuthException catch (e) {
+        // Manejo de errores de registro
         String errorMessage;
         switch (e.code) {
           case 'email-already-in-use':
             errorMessage = 'El correo electrónico ya está registrado';
             break;
-          case 'invalid-phone-number':
-            errorMessage = 'Número de teléfono inválido';
-            break;
           default:
             errorMessage = 'Error de registro: ${e.message}';
         }
-        
+
+        // Muestra un SnackBar con el mensaje de error
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMessage)),
+          SnackBar(content: Text(errorMessage))
         );
       } finally {
+        // Finaliza el estado de carga
         setState(() {
           _isLoading = false;
         });
@@ -78,6 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  // Método para mostrar un diálogo de verificación de correo
   void _showVerificationDialog(String message) {
     showDialog(
       context: context,
@@ -87,8 +82,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop(); // Go back to login
+              Navigator.of(context).pop(); // Cierra el diálogo
+              Navigator.of(context).pop(); // Regresa a la pantalla de login
             },
             child: const Text('Aceptar'),
           ),
@@ -110,6 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40),
+                // Ícono de registro
                 Center(
                   child: Column(
                     children: const [
@@ -118,6 +114,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
+                
+                // Campo de texto para nombre completo
                 TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
@@ -130,30 +128,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   validator: validateName,
                 ),
                 const SizedBox(height: 15),
+                
+                // Campo de texto para correo electrónico
                 TextFormField(
-                  controller: emailPhoneController,
+                  controller: emailController,
                   decoration: InputDecoration(
-                    labelText: isEmail ? "Correo electrónico" : "Número de teléfono",
+                    labelText: "Correo electrónico",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    prefixIcon: Icon(isEmail ? Icons.email : Icons.phone),
-                    hintText: isEmail ? "ejemplo@correo.com" : "10 dígitos",
+                    prefixIcon: const Icon(Icons.email),
+                    hintText: "ejemplo@correo.com",
                   ),
-                  keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.phone,
-                  validator: (value) => validateEmailOrPhone(value, isEmail),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) => validateEmail(value),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isEmail = !isEmail;
-                      });
-                    },
-                    child: Text(isEmail ? "Usar número de teléfono" : "Usar correo electrónico"),
-                  ),
-                ),
+                const SizedBox(height: 15),
+                
+                // Campo de texto para contraseña
                 TextFormField(
                   controller: passwordController,
                   decoration: InputDecoration(
@@ -162,9 +154,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     prefixIcon: const Icon(Icons.lock),
+                    // Botón para mostrar/ocultar contraseña
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -177,6 +172,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   validator: validatePassword,
                 ),
                 const SizedBox(height: 20),
+                
+                // Botón de registro
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton(
@@ -190,14 +187,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     child: _isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text("Registrarse", style: TextStyle(fontSize: 18)),
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            "Registrarse",
+                            style: TextStyle(fontSize: 18),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 20),
+                
+                // Enlace para ir a la pantalla de inicio de sesión
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
                   },
                   child: const Center(
                     child: Text(
@@ -206,6 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 30),
               ],
             ),

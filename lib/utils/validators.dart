@@ -1,5 +1,3 @@
-// utils/validators.dart
-
 String? validateName(String? value) {
   if (value == null || value.isEmpty) {
     return 'Ingrese su nombre completo';
@@ -14,24 +12,17 @@ String? validateName(String? value) {
   return null;
 }
 
-String? validateEmailOrPhone(String? value, bool isEmail) {
+String? validateEmail(String? value) {
   if (value == null || value.isEmpty) {
-    return isEmail ? 'Ingrese un correo válido' : 'Ingrese un número de teléfono válido';
+    return 'Ingrese un correo electrónico válido';
   }
   
-  if (isEmail) {
-    // More comprehensive email validation
-    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
-    if (!emailRegex.hasMatch(value)) {
-      return 'Ingrese un correo electrónico válido';
-    }
-  } else {
-    // Basic phone number validation (adjust regex as needed)
-    final phoneRegex = RegExp(r'^[+]?[\d\s-]{10,14}$');
-    if (!phoneRegex.hasMatch(value)) {
-      return 'Ingrese un número de teléfono válido';
-    }
+  // More comprehensive email validation
+  final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+  if (!emailRegex.hasMatch(value)) {
+    return 'Ingrese un correo electrónico válido';
   }
+  
   return null;
 }
 
