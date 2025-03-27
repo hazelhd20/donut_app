@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 
 class PancakeTile extends StatelessWidget {
   final String pancakeFlavor;
@@ -6,6 +6,7 @@ class PancakeTile extends StatelessWidget {
   final MaterialColor pancakeColor;
   final String imageName;
   final double borderRadius = 14;
+  final VoidCallback? onAddPressed; // Nuevo: callback para añadir
 
   const PancakeTile({
     super.key,
@@ -13,6 +14,7 @@ class PancakeTile extends StatelessWidget {
     required this.pancakePrice,
     required this.pancakeColor,
     required this.imageName,
+    this.onAddPressed, // Nuevo: parámetro opcional
   });
 
   @override
@@ -21,12 +23,12 @@ class PancakeTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: pancakeColor[50] ?? Colors.grey[50], // Asegura un color seguro
+          color: pancakeColor[50] ?? Colors.grey[50],
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Column(
           children: [
-            // price
+            // price (sin cambios)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -51,7 +53,7 @@ class PancakeTile extends StatelessWidget {
               ],
             ),
 
-            // pancake picture
+            // pancake picture (sin cambios)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
               child: Image.asset(imageName, errorBuilder: (context, error, stackTrace) {
@@ -59,7 +61,7 @@ class PancakeTile extends StatelessWidget {
               }),
             ),
 
-            // pancake flavor
+            // pancake flavor (sin cambios)
             Text(
               pancakeFlavor,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -70,13 +72,13 @@ class PancakeTile extends StatelessWidget {
               style: TextStyle(color: Colors.grey[600]),
             ),
 
-            // love icon + add button
+            // love icon + add button (modificado solo el onPressed del add)
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // love icon
+                  // love icon (sin cambios)
                   IconButton(
                     icon: Icon(Icons.favorite, color: Colors.pink[400] ?? Colors.pink),
                     onPressed: () {
@@ -84,10 +86,10 @@ class PancakeTile extends StatelessWidget {
                     },
                   ),
 
-                  // plus button
+                  // plus button (actualizado)
                   IconButton(
                     icon: Icon(Icons.add, color: Colors.grey[800] ?? Colors.grey),
-                    onPressed: () {
+                    onPressed: onAddPressed ?? () { // Usa el callback o el comportamiento por defecto
                       debugPrint('Añadir presionado');
                     },
                   ),

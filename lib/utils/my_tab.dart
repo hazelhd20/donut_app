@@ -15,10 +15,18 @@ class MyTab extends StatelessWidget {
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               border: Border(),
-                color: Colors.grey[200], borderRadius: BorderRadius.circular(12)),
-            child: Image.asset(
-              iconPath,
-              color: Colors.grey[600],
+              color: Colors.grey[200], 
+              borderRadius: BorderRadius.circular(12),
+            child: Column(
+              children: [
+                Image.asset(
+                  iconPath,
+                  width: 30,          // Añadido del segundo código
+                  height: 30,         // Añadido del segundo código
+                  color: Colors.grey[600],
+                ),
+                const SizedBox(height: 5), // Añadido del segundo código
+              ],
             ),
           ),
         ),

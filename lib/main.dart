@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart'; 
-import 'package:flutter/services.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:donut_app/pages/onboarding_screen.dart';
+import 'package:donut_app/utils/cart_manager.dart'; // Asegúrate de tener este archivo
 import 'package:donut_app/utils/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,7 +23,12 @@ void main() async {
     statusBarBrightness: Brightness.light, // Asegura visibilidad en iOS
   ));
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartManager(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -32,11 +40,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: appPrimaryColor),
+        useMaterial3: true,
       ),
       title: 'Donut App',
       home: OnboardingScreen(),
     );
   }
 }
-
-

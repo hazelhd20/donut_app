@@ -6,6 +6,8 @@ class DonutTile extends StatelessWidget {
   final MaterialColor donutColor;
   final String imageName;
   final double borderRadius = 14;
+  final VoidCallback? onFavoritePressed; // Nuevo: callback para favoritos
+  final VoidCallback? onAddPressed;      // Nuevo: callback para añadir
 
   const DonutTile({
     super.key,
@@ -13,6 +15,8 @@ class DonutTile extends StatelessWidget {
     required this.donutPrice,
     required this.donutColor,
     required this.imageName,
+    this.onFavoritePressed,              // Nuevo: parámetro opcional
+    this.onAddPressed,                   // Nuevo: parámetro opcional
   });
 
   @override
@@ -21,12 +25,12 @@ class DonutTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: donutColor[50] ?? Colors.grey[50], // Asegura un color seguro
+          color: donutColor[50] ?? Colors.grey[50],
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Column(
           children: [
-            // price
+            // Sección de precio (sin cambios)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -51,7 +55,7 @@ class DonutTile extends StatelessWidget {
               ],
             ),
 
-            // donut picture
+            // Imagen del donut (sin cambios)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
               child: Image.asset(imageName, errorBuilder: (context, error, stackTrace) {
@@ -59,7 +63,7 @@ class DonutTile extends StatelessWidget {
               }),
             ),
 
-            // donut flavor
+            // Nombre y marca (sin cambios)
             Text(
               donutFlavor,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -70,24 +74,24 @@ class DonutTile extends StatelessWidget {
               style: TextStyle(color: Colors.grey[600]),
             ),
 
-            // love icon + add button
+            // Botones de acción (modificado solo los onPressed)
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // love icon
+                  // Botón de favorito
                   IconButton(
                     icon: Icon(Icons.favorite, color: Colors.pink[400] ?? Colors.pink),
-                    onPressed: () {
+                    onPressed: onFavoritePressed ?? () {  // Cambio aquí
                       debugPrint('Favorito presionado');
                     },
                   ),
 
-                  // plus button
+                  // Botón de añadir
                   IconButton(
                     icon: Icon(Icons.add, color: Colors.grey[800] ?? Colors.grey),
-                    onPressed: () {
+                    onPressed: onAddPressed ?? () {     // Cambio aquí
                       debugPrint('Añadir presionado');
                     },
                   ),

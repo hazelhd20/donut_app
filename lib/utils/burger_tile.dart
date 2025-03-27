@@ -6,6 +6,8 @@ class BurgerTile extends StatelessWidget {
   final MaterialColor burgerColor;
   final String imageName;
   final double borderRadius = 14;
+  final VoidCallback? onFavoritePressed;
+  final VoidCallback? onAddPressed;
 
   const BurgerTile({
     super.key,
@@ -13,6 +15,8 @@ class BurgerTile extends StatelessWidget {
     required this.burgerPrice,
     required this.burgerColor,
     required this.imageName,
+    this.onFavoritePressed,
+    this.onAddPressed,
   });
 
   @override
@@ -21,12 +25,12 @@ class BurgerTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: burgerColor[50] ?? Colors.grey[50], // Asegura un color seguro
+          color: burgerColor[50] ?? Colors.grey[50],
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Column(
           children: [
-            // price
+            // Precio
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -51,18 +55,28 @@ class BurgerTile extends StatelessWidget {
               ],
             ),
 
-            // burger picture
+            // Imagen de la hamburguesa
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
-              child: Image.asset(imageName, errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.broken_image, size: 50, color: Colors.red);
-              }),
+              child: Image.asset(
+                imageName,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.broken_image,
+                    size: 50,
+                    color: Colors.red,
+                  );
+                },
+              ),
             ),
 
-            // burger flavor
+            // Nombre del sabor
             Text(
               burgerFlavor,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
@@ -70,24 +84,30 @@ class BurgerTile extends StatelessWidget {
               style: TextStyle(color: Colors.grey[600]),
             ),
 
-            // love icon + add button
+            // Botones de favorito y añadir
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // love icon
+                  // Botón de favorito
                   IconButton(
-                    icon: Icon(Icons.favorite, color: Colors.pink[400] ?? Colors.pink),
-                    onPressed: () {
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Colors.pink[400] ?? Colors.pink,
+                    ),
+                    onPressed: onFavoritePressed ?? () {
                       debugPrint('Favorito presionado');
                     },
                   ),
 
-                  // plus button
+                  // Botón de añadir
                   IconButton(
-                    icon: Icon(Icons.add, color: Colors.grey[800] ?? Colors.grey),
-                    onPressed: () {
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.grey[800] ?? Colors.grey,
+                    ),
+                    onPressed: onAddPressed ?? () {
                       debugPrint('Añadir presionado');
                     },
                   ),

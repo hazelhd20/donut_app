@@ -6,6 +6,7 @@ class PizzaTile extends StatelessWidget {
   final MaterialColor pizzaColor;
   final String imageName;
   final double borderRadius = 14;
+  final VoidCallback? onAddPressed; // Nuevo: callback para añadir
 
   const PizzaTile({
     super.key,
@@ -13,6 +14,7 @@ class PizzaTile extends StatelessWidget {
     required this.pizzaPrice,
     required this.pizzaColor,
     required this.imageName,
+    this.onAddPressed, // Nuevo: parámetro opcional
   });
 
   @override
@@ -21,12 +23,12 @@ class PizzaTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: pizzaColor[50] ?? Colors.grey[50], // Asegura un color seguro
+          color: pizzaColor[50] ?? Colors.grey[50],
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Column(
           children: [
-            // price
+            // price (sin cambios)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -51,7 +53,7 @@ class PizzaTile extends StatelessWidget {
               ],
             ),
 
-            // pizza picture
+            // pizza picture (sin cambios)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
               child: Image.asset(imageName, errorBuilder: (context, error, stackTrace) {
@@ -59,7 +61,7 @@ class PizzaTile extends StatelessWidget {
               }),
             ),
 
-            // pizza flavor
+            // pizza flavor (sin cambios)
             Text(
               pizzaFlavor,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -70,13 +72,13 @@ class PizzaTile extends StatelessWidget {
               style: TextStyle(color: Colors.grey[600]),
             ),
 
-            // love icon + add button
+            // love icon + add button (modificado solo el onPressed del add)
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // love icon
+                  // love icon (sin cambios)
                   IconButton(
                     icon: Icon(Icons.favorite, color: Colors.pink[400] ?? Colors.pink),
                     onPressed: () {
@@ -84,10 +86,10 @@ class PizzaTile extends StatelessWidget {
                     },
                   ),
 
-                  // plus button
+                  // plus button (actualizado)
                   IconButton(
                     icon: Icon(Icons.add, color: Colors.grey[800] ?? Colors.grey),
-                    onPressed: () {
+                    onPressed: onAddPressed ?? () { // Usa el callback o el comportamiento por defecto
                       debugPrint('Añadir presionado');
                     },
                   ),

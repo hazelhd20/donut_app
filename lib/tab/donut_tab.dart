@@ -1,8 +1,10 @@
 import 'package:donut_app/utils/donut_tile.dart';
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 
 class DonutTab extends StatelessWidget {
-  // Lista de donuts
+  final Function(double, String) onAddToCart;
+  
+  // Lista de donuts manteniendo las imágenes originales del primer código
   final List<List<dynamic>> donutsOnSale = [
     ["Ice Cream", 36.0, Colors.blue, "lib/assets/images/icecream_donut.png"],
     ["Strawberry", 45.0, Colors.red, "lib/assets/images/strawberry_donut.png"],
@@ -14,7 +16,7 @@ class DonutTab extends StatelessWidget {
     ["Blueberry", 80.0, Colors.indigo, "lib/assets/images/blueberry_donut.png"],
   ];
 
-  DonutTab({super.key});
+  DonutTab({super.key, required this.onAddToCart});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,20 @@ class DonutTab extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 1 / 1.5,
+        mainAxisSpacing: 12, // Añadido del segundo código
+        crossAxisSpacing: 12, // Añadido del segundo código
       ),
       itemBuilder: (context, index) {
         return DonutTile(
-          key: ValueKey(donutsOnSale[index][0]), // Mejor rendimiento
+          key: ValueKey(donutsOnSale[index][0]),
           donutFlavor: donutsOnSale[index][0],
-          donutPrice: donutsOnSale[index][1].toString(), // Convertir a String si es necesario
+          donutPrice: donutsOnSale[index][1].toString(),
           donutColor: donutsOnSale[index][2],
           imageName: donutsOnSale[index][3],
+          onAddPressed: () => onAddToCart(
+            donutsOnSale[index][1], // Precio como double
+            donutsOnSale[index][0]  // Nombre del producto
+          ),
         );
       },
     );

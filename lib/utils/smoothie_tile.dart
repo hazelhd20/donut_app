@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 
 class SmoothieTile extends StatelessWidget {
   final String smoothieFlavor;
@@ -6,6 +6,8 @@ class SmoothieTile extends StatelessWidget {
   final MaterialColor smoothieColor;
   final String imageName;
   final double borderRadius = 14;
+  final VoidCallback? onFavoritePressed; // Nuevo: callback para favoritos
+  final VoidCallback? onAddPressed;      // Nuevo: callback para añadir
 
   const SmoothieTile({
     super.key,
@@ -13,6 +15,8 @@ class SmoothieTile extends StatelessWidget {
     required this.smoothiePrice,
     required this.smoothieColor,
     required this.imageName,
+    this.onFavoritePressed,              // Nuevo: parámetro opcional
+    this.onAddPressed,                   // Nuevo: parámetro opcional
   });
 
   @override
@@ -21,12 +25,12 @@ class SmoothieTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: smoothieColor[50] ?? Colors.grey[50], // Asegura un color seguro
+          color: smoothieColor[50] ?? Colors.grey[50],
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Column(
           children: [
-            // price
+            // Sección de precio (sin cambios)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -51,18 +55,28 @@ class SmoothieTile extends StatelessWidget {
               ],
             ),
 
-            // smoothie picture
+            // Imagen del smoothie (sin cambios)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
-              child: Image.asset(imageName, errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.broken_image, size: 50, color: Colors.red);
-              }),
+              child: Image.asset(
+                imageName,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.broken_image,
+                    size: 50,
+                    color: Colors.red,
+                  );
+                },
+              ),
             ),
 
-            // smoothie flavor
+            // Nombre y marca (sin cambios)
             Text(
               smoothieFlavor,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
@@ -70,24 +84,30 @@ class SmoothieTile extends StatelessWidget {
               style: TextStyle(color: Colors.grey[600]),
             ),
 
-            // love icon + add button
+            // Botones de acción (modificado solo los onPressed)
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // love icon
+                  // Botón de favorito
                   IconButton(
-                    icon: Icon(Icons.favorite, color: Colors.pink[400] ?? Colors.pink),
-                    onPressed: () {
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Colors.pink[400] ?? Colors.pink,
+                    ),
+                    onPressed: onFavoritePressed ?? () {
                       debugPrint('Favorito presionado');
                     },
                   ),
 
-                  // plus button
+                  // Botón de añadir
                   IconButton(
-                    icon: Icon(Icons.add, color: Colors.grey[800] ?? Colors.grey),
-                    onPressed: () {
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.grey[800] ?? Colors.grey,
+                    ),
+                    onPressed: onAddPressed ?? () {
                       debugPrint('Añadir presionado');
                     },
                   ),
