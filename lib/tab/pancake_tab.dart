@@ -2,9 +2,6 @@ import 'package:donut_app/utils/pancake_tile.dart';
 import 'package:flutter/material.dart';
 
 class PancakeTab extends StatelessWidget {
-  final Function(double, String) onAddToCart;
-  
-  // Lista de pancakes manteniendo las imágenes originales
   final List<List<dynamic>> pancakesOnSale = [
     ["Classic", 50.0, Colors.brown, "lib/assets/images/classic_pancake.png"],
     ["Blueberry", 60.0, Colors.blue, "lib/assets/images/classic_pancake.png"],
@@ -16,7 +13,7 @@ class PancakeTab extends StatelessWidget {
     ["Mixed Fruit", 85.0, Colors.purple, "lib/assets/images/classic_pancake.png"],
   ];
 
-  PancakeTab({super.key, required this.onAddToCart});
+  PancakeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +23,14 @@ class PancakeTab extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 1 / 1.5,
-        mainAxisSpacing: 12, // Añadido del segundo código
-        crossAxisSpacing: 12, // Añadido del segundo código
       ),
       itemBuilder: (context, index) {
         return PancakeTile(
-          key: ValueKey(pancakesOnSale[index][0]),
+          key: ValueKey(pancakesOnSale[index][0]), // Mejor rendimiento
           pancakeFlavor: pancakesOnSale[index][0],
           pancakePrice: pancakesOnSale[index][1].toString(),
           pancakeColor: pancakesOnSale[index][2],
           imageName: pancakesOnSale[index][3],
-          onAddPressed: () => onAddToCart(
-            pancakesOnSale[index][1], // Precio como double
-            pancakesOnSale[index][0]  // Nombre del producto
-          ),
         );
       },
     );

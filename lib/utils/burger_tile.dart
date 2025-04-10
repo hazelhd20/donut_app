@@ -1,4 +1,7 @@
+import 'package:donut_app/utils/cart_provider.dart';
+import 'package:donut_app/utils/snackbar_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BurgerTile extends StatelessWidget {
   final String burgerFlavor;
@@ -6,8 +9,6 @@ class BurgerTile extends StatelessWidget {
   final MaterialColor burgerColor;
   final String imageName;
   final double borderRadius = 14;
-  final VoidCallback? onFavoritePressed;
-  final VoidCallback? onAddPressed;
 
   const BurgerTile({
     super.key,
@@ -15,22 +16,22 @@ class BurgerTile extends StatelessWidget {
     required this.burgerPrice,
     required this.burgerColor,
     required this.imageName,
-    this.onFavoritePressed,
-    this.onAddPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+  final cartProvider = Provider.of<CartProvider>(context, listen: false);
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: burgerColor[50] ?? Colors.grey[50],
+          color: burgerColor[50] ?? Colors.grey[50], // Asegura un color seguro
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Column(
           children: [
-            // Precio
+            // price
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -55,9 +56,12 @@ class BurgerTile extends StatelessWidget {
               ],
             ),
 
-            // Imagen de la hamburguesa
+            // burger picture
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 42.0,
+                vertical: 4,
+              ),
               child: Image.asset(
                 imageName,
                 errorBuilder: (context, error, stackTrace) {
@@ -70,45 +74,40 @@ class BurgerTile extends StatelessWidget {
               ),
             ),
 
-            // Nombre del sabor
+            // burger flavor
             Text(
               burgerFlavor,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 4),
-            Text(
-              'Burger House',
-              style: TextStyle(color: Colors.grey[600]),
-            ),
+            Text('Burger House', style: TextStyle(color: Colors.grey[600])),
 
-            // Botones de favorito y añadir
+            // love icon + add button
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Botón de favorito
+                  // love icon
                   IconButton(
                     icon: Icon(
                       Icons.favorite,
                       color: Colors.pink[400] ?? Colors.pink,
                     ),
-                    onPressed: onFavoritePressed ?? () {
+                    onPressed: () {
                       debugPrint('Favorito presionado');
                     },
                   ),
 
-                  // Botón de añadir
+                  // plus button
                   IconButton(
                     icon: Icon(
                       Icons.add,
                       color: Colors.grey[800] ?? Colors.grey,
                     ),
-                    onPressed: onAddPressed ?? () {
-                      debugPrint('Añadir presionado');
+                    onPressed: () {
+                      cartProvider.addItem(burgerFlavor, burgerPrice, 'Burger', imageName,);
+                      showCustomSnackBar(context, '$burgerFlavor añadido al carrito',);
                     },
                   ),
                 ],

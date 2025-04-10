@@ -1,10 +1,8 @@
 import 'package:donut_app/utils/burger_tile.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 
 class BurgerTab extends StatelessWidget {
-  final Function(double, String) onAddToCart;
-  
-  // Lista de hamburguesas (manteniendo las imágenes originales del primer código)
+  // Lista de hamburguesas
   final List<List<dynamic>> burgersOnSale = [
     ["Cheese Burger", 50.0, Colors.yellow, "lib/assets/images/cheese_burger.png"],
     ["Bacon Burger", 65.0, Colors.red, "lib/assets/images/cheese_burger.png"],
@@ -16,7 +14,7 @@ class BurgerTab extends StatelessWidget {
     ["Classic Burger", 45.0, Colors.indigo, "lib/assets/images/cheese_burger.png"],
   ];
 
-  BurgerTab({super.key, required this.onAddToCart});
+  BurgerTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +24,14 @@ class BurgerTab extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 1 / 1.5,
-        mainAxisSpacing: 12, // Añadido del segundo código
-        crossAxisSpacing: 12, // Añadido del segundo código
       ),
       itemBuilder: (context, index) {
         return BurgerTile(
-          key: ValueKey(burgersOnSale[index][0]),
+          key: ValueKey(burgersOnSale[index][0]), // Mejor rendimiento
           burgerFlavor: burgersOnSale[index][0],
-          burgerPrice: burgersOnSale[index][1].toString(),
+          burgerPrice: burgersOnSale[index][1].toString(), // Convertir a String si es necesario
           burgerColor: burgersOnSale[index][2],
           imageName: burgersOnSale[index][3],
-          onAddPressed: () => onAddToCart(
-            burgersOnSale[index][1], // Precio como double
-            burgersOnSale[index][0]  // Nombre del producto
-          ),
         );
       },
     );

@@ -2,9 +2,6 @@ import 'package:donut_app/utils/pizza_tile.dart';
 import 'package:flutter/material.dart';
 
 class PizzaTab extends StatelessWidget {
-  final Function(double, String) onAddToCart; // Función callback para añadir al carrito
-  
-  // Lista de pizzas manteniendo las imágenes originales del primer código
   final List<List<dynamic>> pizzasOnSale = [
     ["Pepperoni", 120.0, Colors.red, "lib/assets/images/pepperoni_pizza.png"],
     ["Margherita", 100.0, Colors.green, "lib/assets/images/pepperoni_pizza.png"],
@@ -16,7 +13,7 @@ class PizzaTab extends StatelessWidget {
     ["Supreme", 135.0, Colors.purple, "lib/assets/images/pepperoni_pizza.png"],
   ];
 
-  PizzaTab({super.key, required this.onAddToCart});
+  PizzaTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +23,14 @@ class PizzaTab extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 1 / 1.5,
-        mainAxisSpacing: 12, // Espaciado vertical entre items (del segundo código)
-        crossAxisSpacing: 12, // Espaciado horizontal entre items (del segundo código)
       ),
       itemBuilder: (context, index) {
         return PizzaTile(
-          key: ValueKey(pizzasOnSale[index][0]), // Clave única para mejor rendimiento
-          pizzaFlavor: pizzasOnSale[index][0], // Nombre de la pizza
-          pizzaPrice: pizzasOnSale[index][1].toString(), // Precio convertido a String
-          pizzaColor: pizzasOnSale[index][2], // Color asociado
-          imageName: pizzasOnSale[index][3], // Imagen (se mantienen las originales)
-          onAddPressed: () => onAddToCart( // Función para añadir al carrito
-            pizzasOnSale[index][1], // Precio como double
-            pizzasOnSale[index][0]  // Nombre de la pizza
-          ),
+          key: ValueKey(pizzasOnSale[index][0]), // Mejor rendimiento
+          pizzaFlavor: pizzasOnSale[index][0],
+          pizzaPrice: pizzasOnSale[index][1].toString(),
+          pizzaColor: pizzasOnSale[index][2],
+          imageName: pizzasOnSale[index][3],
         );
       },
     );

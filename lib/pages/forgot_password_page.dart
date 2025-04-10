@@ -3,7 +3,6 @@ import 'package:donut_app/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// Pantalla de recuperación de contraseña como un StatefulWidget
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
@@ -12,42 +11,30 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  // Controlador para el campo de texto de correo electrónico
   final TextEditingController _emailController = TextEditingController();
-  
-  // Indicador de estado de carga
   bool _isLoading = false;
-  
-  // Clave global para el formulario, permite validación
   final _formKey = GlobalKey<FormState>();
 
-  // Método asíncrono para restablecer la contraseña
   Future<void> _resetPassword() async {
-    // Valida el formulario antes de proceder
     if (_formKey.currentState!.validate()) {
-      // Establece el estado de carga a verdadero
       setState(() => _isLoading = true);
-      
+
       try {
-        // Envía un correo de restablecimiento de contraseña usando Firebase
         await FirebaseAuth.instance.sendPasswordResetEmail(
           email: _emailController.text.trim()
         );
-        
-        // Verifica si el widget está montado para evitar errores
+
         if (mounted) {
-          // Muestra un diálogo de éxito
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('Restablecer Contraseña'),
-              // Muestra un mensaje con el correo electrónico ingresado
               content: Text('Se ha enviado un enlace de recuperación a ${_emailController.text}. Revisa tu correo electrónico.'),
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop(); // Cierra el diálogo
-                    Navigator.of(context).pop(); // Regresa a la pantalla de inicio de sesión
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   },
                   child: const Text('Aceptar'),
                 ),
@@ -56,7 +43,6 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           );
         }
       } on FirebaseAuthException catch (e) {
-        // Manejo de diferentes tipos de errores de Firebase
         String errorMessage;
         switch (e.code) {
           case 'user-not-found':
@@ -69,12 +55,10 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             errorMessage = 'Error al restablecer contraseña: ${e.message}';
         }
 
-        // Muestra un SnackBar con el mensaje de error
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage)),
         );
       } finally {
-        // Establece el estado de carga a falso al finalizar
         setState(() => _isLoading = false);
       }
     }
@@ -83,37 +67,36 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Color de fondo de la pantalla
       backgroundColor: appBackgroundColor,
-      
-      // Barra de aplicación personalizada
       appBar: AppBar(
-        title: const Text('Recuperar Contraseña'),
+        title: const Text(
+          'Recuperar Contraseña',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: appPrimaryColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      
-      // Contenido de la pantalla con desplazamiento
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(kDefaultPadding),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
               const SizedBox(height: 40),
-              
-              // Ícono de candado reset
+
               const Icon(
                 Icons.lock_reset,
                 size: 80,
                 color: appPrimaryColor,
               ),
               const SizedBox(height: 20),
-              
-              // Títulos y descripciones
+
               const Text(
                 '¿Olvidaste tu contraseña?',
                 style: TextStyle(
@@ -128,8 +111,7 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 style: TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 30),
-              
-              // Campo de texto para el correo electrónico
+
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -140,16 +122,13 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                // Validación del correo electrónico
                 validator: (value) => validateEmail(value),
               ),
               const SizedBox(height: 30),
-              
-              // Botón de envío con estado de carga
+
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  // Deshabilita el botón durante la carga
                   onPressed: _isLoading ? null : _resetPassword,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: appPrimaryColor,
@@ -168,15 +147,6 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              
-              // Botón para volver a la pantalla de inicio de sesión
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text(
-                  'Volver al inicio de sesión',
-                  style: TextStyle(color: appPrimaryColor),
-                ),
-              ),
             ],
           ),
         ),

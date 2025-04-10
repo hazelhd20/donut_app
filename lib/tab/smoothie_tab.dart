@@ -2,9 +2,6 @@ import 'package:donut_app/utils/smoothie_tile.dart';
 import 'package:flutter/material.dart';
 
 class SmoothieTab extends StatelessWidget {
-  final Function(double, String) onAddToCart; // Callback para añadir al carrito
-  
-  // Lista de smoothies manteniendo las imágenes originales
   final List<List<dynamic>> smoothiesOnSale = [
     ["Strawberry", 40.0, Colors.red, "lib/assets/images/strawberry_smoothie.png"],
     ["Banana", 35.0, Colors.yellow, "lib/assets/images/strawberry_smoothie.png"],
@@ -16,7 +13,7 @@ class SmoothieTab extends StatelessWidget {
     ["Green Detox", 65.0, Colors.teal, "lib/assets/images/strawberry_smoothie.png"],
   ];
 
-  SmoothieTab({super.key, required this.onAddToCart});
+  SmoothieTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +23,6 @@ class SmoothieTab extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 1 / 1.5,
-        mainAxisSpacing: 12, // Espaciado añadido
-        crossAxisSpacing: 12, // Espaciado añadido
       ),
       itemBuilder: (context, index) {
         return SmoothieTile(
@@ -35,10 +30,6 @@ class SmoothieTab extends StatelessWidget {
           smoothiePrice: smoothiesOnSale[index][1].toString(),
           smoothieColor: smoothiesOnSale[index][2],
           imageName: smoothiesOnSale[index][3],
-          onAddPressed: () => onAddToCart(
-            smoothiesOnSale[index][1], // Precio como double
-            smoothiesOnSale[index][0]  // Nombre del smoothie
-          ),
         );
       },
     );

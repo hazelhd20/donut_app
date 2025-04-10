@@ -12,7 +12,20 @@
           "package_name": "com.example.donut_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "447586491145-vmgrleijemfgqqb68732hb2ffmm20b5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.donut_app",
+            "certificate_hash": "1e8266d2cbcb4246b3ba6a746f36a6e298bf03a9"
+          }
+        },
+        {
+          "client_id": "447586491145-3rcsc9cndh5bvrku73kap9mrl0m0s65a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCyi76FJwpgUMGl4GLj9XnBwqRkQ6dkS8w"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447586491145-3rcsc9cndh5bvrku73kap9mrl0m0s65a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "447586491145-gj6hujqiphk0p7o91q0oq42fk7qht6gp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.donutApp"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,12 @@
           "package_name": "com.hazel.donutapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "447586491145-3rcsc9cndh5bvrku73kap9mrl0m0s65a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCyi76FJwpgUMGl4GLj9XnBwqRkQ6dkS8w"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447586491145-3rcsc9cndh5bvrku73kap9mrl0m0s65a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "447586491145-gj6hujqiphk0p7o91q0oq42fk7qht6gp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.donutApp"
+              }
+            }
+          ]
         }
       }
     }

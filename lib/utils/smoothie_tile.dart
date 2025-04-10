@@ -1,4 +1,7 @@
+import 'package:donut_app/utils/cart_provider.dart';
+import 'package:donut_app/utils/snackbar_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
 
 class SmoothieTile extends StatelessWidget {
   final String smoothieFlavor;
@@ -6,8 +9,6 @@ class SmoothieTile extends StatelessWidget {
   final MaterialColor smoothieColor;
   final String imageName;
   final double borderRadius = 14;
-  final VoidCallback? onFavoritePressed; // Nuevo: callback para favoritos
-  final VoidCallback? onAddPressed;      // Nuevo: callback para añadir
 
   const SmoothieTile({
     super.key,
@@ -15,22 +16,22 @@ class SmoothieTile extends StatelessWidget {
     required this.smoothiePrice,
     required this.smoothieColor,
     required this.imageName,
-    this.onFavoritePressed,              // Nuevo: parámetro opcional
-    this.onAddPressed,                   // Nuevo: parámetro opcional
   });
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: smoothieColor[50] ?? Colors.grey[50],
+          color: smoothieColor[50] ?? Colors.grey[50], // Asegura un color seguro
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Column(
           children: [
-            // Sección de precio (sin cambios)
+            // price
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -55,28 +56,18 @@ class SmoothieTile extends StatelessWidget {
               ],
             ),
 
-            // Imagen del smoothie (sin cambios)
+            // smoothie picture
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
-              child: Image.asset(
-                imageName,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(
-                    Icons.broken_image,
-                    size: 50,
-                    color: Colors.red,
-                  );
-                },
-              ),
+              child: Image.asset(imageName, errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.broken_image, size: 50, color: Colors.red);
+              }),
             ),
 
-            // Nombre y marca (sin cambios)
+            // smoothie flavor
             Text(
               smoothieFlavor,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 4),
             Text(
@@ -84,31 +75,29 @@ class SmoothieTile extends StatelessWidget {
               style: TextStyle(color: Colors.grey[600]),
             ),
 
-            // Botones de acción (modificado solo los onPressed)
+            // love icon + add button
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Botón de favorito
+                  // love icon
                   IconButton(
-                    icon: Icon(
-                      Icons.favorite,
-                      color: Colors.pink[400] ?? Colors.pink,
-                    ),
-                    onPressed: onFavoritePressed ?? () {
+                    icon: Icon(Icons.favorite, color: Colors.pink[400] ?? Colors.pink),
+                    onPressed: () {
                       debugPrint('Favorito presionado');
                     },
                   ),
 
-                  // Botón de añadir
+                  // plus button
                   IconButton(
                     icon: Icon(
                       Icons.add,
                       color: Colors.grey[800] ?? Colors.grey,
                     ),
-                    onPressed: onAddPressed ?? () {
-                      debugPrint('Añadir presionado');
+                    onPressed: () {
+                      cartProvider.addItem(smoothieFlavor, smoothiePrice, 'Smoothie', imageName,);
+                      showCustomSnackBar(context, 'Smoothie $smoothieFlavor añadido al carrito',);
                     },
                   ),
                 ],
