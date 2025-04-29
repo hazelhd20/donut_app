@@ -62,7 +62,7 @@ class PizzaTile extends StatelessWidget {
                 horizontal: 42.0,
                 vertical: 4,
               ),
-              child: Image.asset(
+              child: Image.network(
                 imageName,
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(

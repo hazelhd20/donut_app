@@ -43,7 +43,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               password: passwordController.text,
             );
 
-        // Envía un correo de verificación al nuevo usuario
+        // ✅ Agregar esto para guardar el nombre en el perfil
+        await userCredential.user?.updateDisplayName(
+          nameController.text.trim(),
+        );
+
+        // Enviar correo de verificación
         await userCredential.user?.sendEmailVerification();
 
         // Muestra un diálogo de verificación

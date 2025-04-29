@@ -1,7 +1,7 @@
 import 'package:donut_app/utils/cart_provider.dart';
 import 'package:donut_app/utils/snackbar_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; 
+import 'package:provider/provider.dart';
 
 class SmoothieTile extends StatelessWidget {
   final String smoothieFlavor;
@@ -59,7 +59,7 @@ class SmoothieTile extends StatelessWidget {
             // smoothie picture
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 42.0, vertical: 4),
-              child: Image.asset(imageName, errorBuilder: (context, error, stackTrace) {
+              child: Image.network(imageName, errorBuilder: (context, error, stackTrace) {
                 return const Icon(Icons.broken_image, size: 50, color: Colors.red);
               }),
             ),

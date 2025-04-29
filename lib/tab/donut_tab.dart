@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class DonutTab extends StatelessWidget {
   // Lista de donuts
   final List<List<dynamic>> donutsOnSale = [
-    ["Ice Cream", 36.0, Colors.blue, "lib/assets/images/icecream_donut.png"],
-    ["Strawberry", 45.0, Colors.red, "lib/assets/images/strawberry_donut.png"],
-    ["Grape Ape", 84.0, Colors.purple, "lib/assets/images/grape_donut.png"],
-    ["Choco", 95.0, Colors.brown, "lib/assets/images/chocolate_donut.png"],
-    ["Vanilla", 50.0, Colors.yellow, "lib/assets/images/vanilla_donut.png"],
-    ["Matcha", 70.0, Colors.green, "lib/assets/images/matcha_donut.png"],
-    ["Caramel", 60.0, Colors.orange, "lib/assets/images/caramel_donut.png"],
-    ["Blueberry", 80.0, Colors.indigo, "lib/assets/images/blueberry_donut.png"],
+    ["Ice Cream", 36.0, Colors.blue, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//icecream_donut.png"],
+    ["Strawberry", 45.0, Colors.red, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//strawberry_donut.png"],
+    ["Grape Ape", 84.0, Colors.purple, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//grape_donut.png"],
+    ["Choco", 95.0, Colors.brown, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//chocolate_donut.png"],
+    ["Vanilla", 50.0, Colors.yellow, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//vanilla_donut.png"],
+    ["Matcha", 70.0, Colors.green, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//matcha_donut.png"],
+    ["Caramel", 60.0, Colors.orange, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//caramel_donut.png"],
+    ["Blueberry", 80.0, Colors.indigo, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/donuts//blueberry_donut.png"],
   ];
 
   DonutTab({super.key});

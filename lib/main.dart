@@ -6,9 +6,16 @@ import 'package:donut_app/pages/onboarding_page.dart';
 import 'package:donut_app/utils/constants.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializar Supabase
+  await Supabase.initialize(
+    url: 'https://yrhopuqxxlhjrzmnmikk.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyaG9wdXF4eGxoanJ6bW5taWtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NDgwNTYsImV4cCI6MjA2MTUyNDA1Nn0.2x04vj7kkvnE2eCxBzaWKGcaQEFLtPPxRjFZFJOit6c',
+  );
 
   // Inicializar Firebase
   await Firebase.initializeApp(

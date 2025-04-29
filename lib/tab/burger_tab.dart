@@ -1,17 +1,17 @@
 import 'package:donut_app/utils/burger_tile.dart';
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 
 class BurgerTab extends StatelessWidget {
   // Lista de hamburguesas
   final List<List<dynamic>> burgersOnSale = [
-    ["Cheese Burger", 50.0, Colors.yellow, "lib/assets/images/cheese_burger.png"],
-    ["Bacon Burger", 65.0, Colors.red, "lib/assets/images/cheese_burger.png"],
-    ["Veggie Burger", 55.0, Colors.green, "lib/assets/images/cheese_burger.png"],
-    ["BBQ Burger", 70.0, Colors.brown, "lib/assets/images/cheese_burger.png"],
-    ["Spicy Burger", 60.0, Colors.orange, "lib/assets/images/cheese_burger.png"],
-    ["Mushroom Burger", 75.0, Colors.purple, "lib/assets/images/cheese_burger.png"],
-    ["Double Patty", 85.0, Colors.blue, "lib/assets/images/cheese_burger.png"],
-    ["Classic Burger", 45.0, Colors.indigo, "lib/assets/images/cheese_burger.png"],
+    ["Cheese Burger", 50.0, Colors.yellow, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
+    ["Bacon Burger", 65.0, Colors.red, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
+    ["Veggie Burger", 55.0, Colors.green, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
+    ["BBQ Burger", 70.0, Colors.brown, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
+    ["Spicy Burger", 60.0, Colors.orange, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
+    ["Mushroom Burger", 75.0, Colors.purple, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
+    ["Double Patty", 85.0, Colors.blue, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
+    ["Classic Burger", 45.0, Colors.indigo, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/burgers//cheese_burger.png"],
   ];
 
   BurgerTab({super.key});

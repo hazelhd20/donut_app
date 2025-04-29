@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class PizzaTab extends StatelessWidget {
   final List<List<dynamic>> pizzasOnSale = [
-    ["Pepperoni", 120.0, Colors.red, "lib/assets/images/pepperoni_pizza.png"],
-    ["Margherita", 100.0, Colors.green, "lib/assets/images/pepperoni_pizza.png"],
-    ["BBQ Chicken", 140.0, Colors.brown, "lib/assets/images/pepperoni_pizza.png"],
-    ["Veggie", 110.0, Colors.orange, "lib/assets/images/pepperoni_pizza.png"],
-    ["Hawaiian", 130.0, Colors.yellow, "lib/assets/images/pepperoni_pizza.png"],
-    ["Meat Lovers", 150.0, Colors.red, "lib/assets/images/pepperoni_pizza.png"],
-    ["Cheese", 90.0, Colors.blue, "lib/assets/images/pepperoni_pizza.png"],
-    ["Supreme", 135.0, Colors.purple, "lib/assets/images/pepperoni_pizza.png"],
+    ["Pepperoni", 120.0, Colors.red, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
+    ["Margherita", 100.0, Colors.green, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
+    ["BBQ Chicken", 140.0, Colors.brown, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
+    ["Veggie", 110.0, Colors.orange, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
+    ["Hawaiian", 130.0, Colors.yellow, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
+    ["Meat Lovers", 150.0, Colors.red, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
+    ["Cheese", 90.0, Colors.blue, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
+    ["Supreme", 135.0, Colors.purple, "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/pizzas//pepperoni_pizza.png"],
   ];
 
   PizzaTab({super.key});

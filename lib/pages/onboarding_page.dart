@@ -16,22 +16,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, String>> _onboardingData = [
     {
-      "image": "lib/assets/images/donuts.webp",
+      "image": "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/onboarding//donuts.webp",
       "title": "Deliciosas Donas",
       "description": "Prueba nuestras donas recién horneadas y llenas de sabor.",
     },
     {
-      "image": "lib/assets/images/burger.webp",
+      "image": "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/onboarding//burger.webp",
       "title": "Hamburguesas Jugosas",
       "description": "Carnes frescas, ingredientes de calidad y mucho sabor.",
     },
     {
-      "image": "lib/assets/images/pizza.webp",
+      "image": "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/onboarding//pizza.webp",
       "title": "Pizza Irresistible",
       "description": "Masa crujiente, queso derretido y los mejores ingredientes.",
     },
     {
-      "image": "lib/assets/images/smoothie.webp",
+      "image": "https://yrhopuqxxlhjrzmnmikk.supabase.co/storage/v1/object/public/onboarding//smoothie.webp",
       "title": "Smoothies Refrescantes",
       "description": "Bebidas saludables y deliciosas para acompañar tu comida.",
     },
@@ -59,7 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
+                        Image.network(
                           _onboardingData[index]["image"]!,
                           height: 250,
                           fit: BoxFit.contain,

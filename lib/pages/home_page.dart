@@ -119,10 +119,21 @@ class _HomePageState extends State<HomePage> {
               UserAccountsDrawerHeader(
                 accountName: Text(_userName),
                 accountEmail: Text(_userEmail),
-                currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.person, size: 50, color: appPrimaryColor),
-                ),
+                currentAccountPicture:
+                    _currentUser?.photoURL != null
+                        ? CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            _currentUser!.photoURL!,
+                          ),
+                        )
+                        : CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.person,
+                            size: 50,
+                            color: appPrimaryColor,
+                          ),
+                        ),
                 decoration: BoxDecoration(color: appPrimaryColor),
               ),
               ListTile(
